@@ -1,12 +1,14 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import InputField from "./InputField";
+import moment from "moment";
+import Summary from "./Summary";
 
 const InputForm = () => {
   const noOfNonDynamicFields = 6;
   const employeeNoOfFields = Array(7).fill(null);
   const [noOfEmployee, setNoOfEmployee] = useState(Array(1).fill(null));
   const [data, setData] = useState({});
-  const date = new Date().toISOString().substr(0, 10);
+  const date = moment().startOf("day").format("YYYY-MM-DD"); //new Date().toISOString().substr(0, 10);
 
   const inputRefs = useRef([
     React.createRef(),
@@ -32,13 +34,14 @@ const InputForm = () => {
     setData((prev) => Object.assign({}, prev, { [name]: value }));
   };
 
+  useEffect(() => {
+    handleChange("noOfEmployee", noOfEmployee.length);
+    //InsertStartingDateIfNotExist();
+  }, [noOfEmployee]);
+
   const submitForm = (e) => {
     e.preventDefault();
 
-    // setData((prev) =>
-    //   Object.assign({}, prev, { ["noOfEmployee"]: { noOfEmployee.length} })
-    // );
-    console.log(noOfEmployee.length);
     console.log(data);
 
     let isValid = true;
@@ -71,8 +74,8 @@ const InputForm = () => {
   const handleAdd = (e) => {
     e.preventDefault();
     inputRefs.current[6].push(employeeNoOfFields.map((i) => React.createRef()));
-    console.log("add is press");
-    setNoOfEmployee((prev) => [...prev, prev + 1]);
+
+    setNoOfEmployee((prev) => [...prev, null]);
   };
 
   const handleMinus = (e) => {
@@ -81,13 +84,42 @@ const InputForm = () => {
       const list = [...noOfEmployee];
       list.splice(list.length - 1, 1);
       setNoOfEmployee(list);
-      inputRefs.current[6].pop(
-        employeeNoOfFields.map((i) => React.createRef())
-      );
+      inputRefs.current[6].pop(employeeNoOfFields.map(() => React.createRef()));
     }
   };
 
-  const getMinDate = () => {};
+  const getToDateValue = (fromDateStr, toDateStr) => {
+    console.log("From date: " + fromDateStr + " ,to Date: " + toDateStr);
+    var fromDate;
+    var toDate;
+    if (fromDateStr != null) fromDate = moment(fromDateStr, "YYYY-MM-DD");
+    else fromDate = moment().startOf("day");
+    if (toDateStr != null) toDate = moment(toDateStr, "YYYY-MM-DD");
+    else toDate = moment().startOf("day");
+    console.log(
+      "From date: " +
+        fromDate.format("YYYY-MM-DD") +
+        " ,to Date: " +
+        toDate.format("YYYY-MM-DD")
+    );
+    if (fromDate.isSameOrBefore(toDate)) {
+      return toDate.format("YYYY-MM-DD");
+    } else {
+      return fromDate.format("YYYY-MM-DD");
+    }
+  };
+
+  const InsertStartingDateIfNotExist = () => {
+    for (let i = 0; i < noOfEmployee.length; i++) {
+      if (!data[`fromDate${i}`]) {
+        handleChange(`fromDate${i}`, date);
+      }
+      if (!data[`toDate${i}`]) {
+        handleChange(`toDate${i}`, date);
+      }
+    }
+    //var origDate = value ? value : date;
+  };
 
   /* <WeatherEngine location="sydney, au" />
     <WeatherEngine location="london, gb" /> */
@@ -135,7 +167,7 @@ const InputForm = () => {
               name="applicantContact"
               label="Contact of Applicant*:"
               onChange={handleChange}
-              validation={"required"}
+              validation={"required|contact"}
               value={data["applicantContact"]}
             />
             <InputField
@@ -204,11 +236,12 @@ const InputForm = () => {
                   onChange={handleChange}
                   type={"Date"}
                   validation={"required|startDate"}
-                  value={
-                    data[`fromDate${index}`]
-                      ? data[`fromDate${index}`]
-                      : `${date}`
-                  }
+                  // value={
+                  //   data[`fromDate${index}`]
+                  //     ? data[`fromDate${index}`]
+                  //     : `${date}`
+                  // }
+                  value={data[`fromDate${index}`]}
                   min={`${date}`}
                 />
                 <InputField
@@ -219,16 +252,11 @@ const InputForm = () => {
                   onChange={handleChange}
                   type={"Date"}
                   validation={"required|endDate"}
-                  // value={
-                  //   data[`toDate${index}`] ? data[`toDate${index}`] : `${date}`
-                  // }
-                  value={
-                    data[`toDate${index}`]
-                      ? data[`toDate${index}`]
-                      : data[`fromDate${index}`]
-                      ? data[`fromDate${index}`]
-                      : `${date}`
-                  }
+                  // value={getToDateValue(
+                  //   data[`fromDate${index}`],
+                  //   data[`toDate${index}`]
+                  // )}
+                  value={data[`toDate${index}`]}
                   min={
                     data[`fromDate${index}`]
                       ? data[`fromDate${index}`]
@@ -237,12 +265,14 @@ const InputForm = () => {
                 />
               </div>
             ))}
-            <button type="submit">Login</button>
+            <button type="submit">Continue</button>
           </form>
         </div>
       ) : (
-        <div>
-          <button onClick={() => setShowSummary(false)}>Reset!</button>
+        <div classname="form">
+          <Summary data={data} />
+          <button onClick={() => setShowSummary(false)}>Edit</button>
+          <button onClick={() => setShowSummary(false)}>Submit</button>
         </div>
       )}
     </div>

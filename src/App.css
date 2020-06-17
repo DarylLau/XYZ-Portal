@@ -60,7 +60,7 @@
 .input-wrapper input {
   background-color: transparent;
 
-  border: unset;
+  /* border: unset; */
 
   border-radius: 10px;
 
@@ -113,4 +113,20 @@ button:hover {
   font-style: italic;
 
   color: #b60000;
+}
+
+.input-wrapper inputError {
+  background-color: transparent;
+
+  border: unset;
+
+  border-radius: 10px;
+
+  padding: 10px;
+
+  outline: none;
+
+  box-shadow: inset 3px 3px 5px rgba(0, 0, 0, 0.1),
+    inset -3px -3px 5px rgba(241, 255, 255, 0.5);
+  border: 1px solid red;
 }
