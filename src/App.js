@@ -6,6 +6,8 @@ import About from "./components/Navigation/About";
 import Shop from "./components/Navigation/Shop";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import InputForm from "./components/Form/InputForm";
+import MainPage from "./components/MainPage";
+import DashboardMain from "./components/Dashboard/DashboardMain";
 
 function App() {
   return (
@@ -13,9 +15,10 @@ function App() {
       <div className="App">
         <Nav />
         <Switch>
-          <Route path="/" exact component={InputForm} />
-          <Route path="/about" component={About} />
-          <Route path="/shop" component={Shop} />
+          <Route path="/" exact component={MainPage} />
+          <Route path="/register" component={InputForm} />
+          <Route path="/dashboard" component={DashboardMain} />
+          <Route path="/admin" component={Shop} />
         </Switch>
       </div>
     </Router>

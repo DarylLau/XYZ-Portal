@@ -28,13 +28,13 @@ function Nav() {
         <h3>Logo</h3>
       </Link>
       <Navlinks>
-        <Link style={navStyle} to="/about">
+        <Link style={navStyle} to="/register">
           <li>Register</li>
         </Link>
-        <Link style={navStyle} to="/shop">
+        <Link style={navStyle} to="/dashboard">
           <li>Dashboard</li>
         </Link>
-        <Link style={navStyle} to="/shop">
+        <Link style={navStyle} to="/admin">
           <li>Admin Only</li>
         </Link>
       </Navlinks>

@@ -23,7 +23,8 @@ const InputForm = () => {
   ]);
 
   const [showSummary, setShowSummary] = useState(false);
-  const [edit, setEdit] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   console.log(inputRefs);
   console.log(inputRefs.current[1]);
@@ -113,19 +114,7 @@ const InputForm = () => {
 
   const postData = async (data, e) => {
     e.preventDefault();
-    // try {
-    //   const requestOptions = {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify(data),
-    //   };
-    //   const response = await fetch(`./submit`, requestOptions);
-    //   //const reply = await response.json();
-    //   console.log(response);
-    //   //console.log(reply.message);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    setSubmitted(true);
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -144,8 +133,10 @@ const InputForm = () => {
         }
         console.log(response);
         console.log(message);
+        setSubmitSuccess(true);
       })
       .catch((error) => {
+        setSubmitSuccess(false);
         console.error("There was an error!", error);
       });
   };
@@ -158,7 +149,7 @@ const InputForm = () => {
       {!showSummary ? (
         <div>
           <Form onSubmit={submitForm} className="form">
-            <FormH1>React register form</FormH1>
+            <FormH1>Registration Form</FormH1>
             <InputField
               ref={inputRefs.current[0]}
               name="coyName"
@@ -304,8 +295,22 @@ const InputForm = () => {
       ) : (
         <Form>
           <Summary data={data} />
-          <Button onClick={() => setShowSummary(false)}>Edit</Button>
+          <Button
+            onClick={() => {
+              setShowSummary(false);
+              setSubmitted(false);
+            }}
+          >
+            Edit
+          </Button>
           <Button onClick={(e) => postData(data, e)}>Submit</Button>
+          {submitted ? (
+            submitSuccess ? (
+              <h1>Submitted success</h1>
+            ) : (
+              <h2>Please try again, server may not be on</h2>
+            )
+          ) : null}
         </Form>
       )}
     </div>
