@@ -9,35 +9,101 @@ const Summary = ({ data }) => {
     <div>
       <h1>Booking Details</h1>
       <h1>Company Details</h1>
-      <h2>Name of company: {data["coyName"]}</h2>
-      <h2>Address of company: {data["coyAddress"]}</h2>
-      <h2>UEN of Company: {data["coyUEN"]}</h2>
+      <h3>
+        Name of company:
+        <span>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span>
+        {data["coyName"]}
+      </h3>
+      <h3>
+        Address of company:
+        <span>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span>{" "}
+        {data["coyAddress"]}
+      </h3>
+      <h3>
+        UEN of Company:
+        <span>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span>{" "}
+        {data["coyUEN"]}
+      </h3>
       <h1>Applicant Details</h1>
-      <h2>Name of Applicant: {data["applicantName"]}</h2>
-      <h2>Contact of Applicant: {data["applicantContact"]}</h2>
-      <h2>Email of Applicant: {data["applicantEmail"]}</h2>
+      <h3>
+        Name of Applicant:
+        <span>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span>{" "}
+        {data["applicantName"]}
+      </h3>
+      <h3>
+        Contact of Applicant:
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>{" "}
+        {data["applicantContact"]}
+      </h3>
+      <h3>
+        Email of Applicant:
+        <span>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span>{" "}
+        {data["applicantEmail"]}
+      </h3>
       {numberOfEmployee.map((value, index) => (
         <div key={"div" + index}>
           <h1 key={"h3" + index}>Details of Employee {index + 1}</h1>
-          <h2 key={"employeeName" + index}>
-            Name of Employee: {data[`employeeName${index}`]}
-          </h2>
-          <h2 key={"employeeNric" + index}>
-            NRIC/FIN: {data[`employeeNric${index}`]}
-          </h2>
-          <h2 key={"employeePassport" + index}>
-            Passport No.: {data[`employeePassport${index}`]}
-          </h2>
-          <h2 key={"countryOrigin" + index}>
-            Country of Origin: {data[`countryOrigin${index}`]}
-          </h2>
-          <h2 key={"countryDestination" + index}>
-            Country of Destination: {data[`countryDestination${index}`]}
-          </h2>
-          <h2 key={"fromDate" + index}>
-            From Date: {data[`fromDate${index}`]}
-          </h2>
-          <h2 key={"toDate" + index}>To Date: {data[`toDate${index}`]}</h2>
+          <h3 key={"employeeName" + index}>
+            Name of Employee:
+            <span>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;
+            </span>{" "}
+            {data[`employeeName${index}`]}
+          </h3>
+          <h3 key={"employeeNric" + index}>
+            NRIC/FIN:{" "}
+            <span>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </span>
+            {data[`employeeNric${index}`]}
+          </h3>
+          <h3 key={"employeePassport" + index}>
+            Passport No:
+            <span>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </span>{" "}
+            {data[`employeePassport${index}`]}
+          </h3>
+          <h3 key={"countryOrigin" + index}>
+            Country of Origin:
+            <span>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </span>{" "}
+            {data[`countryOrigin${index}`]}
+          </h3>
+          <h3 key={"countryDestination" + index}>
+            Country of Destination: <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            {data[`countryDestination${index}`]}
+          </h3>
+          <h3 key={"fromDate" + index}>
+            From Date:
+            <span>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </span>{" "}
+            {data[`fromDate${index}`]}
+          </h3>
+          <h3 key={"toDate" + index}>
+            To Date:
+            <span>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </span>{" "}
+            {data[`toDate${index}`]}
+          </h3>
         </div>
       ))}
     </div>

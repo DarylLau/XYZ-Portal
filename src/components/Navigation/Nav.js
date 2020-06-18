@@ -29,10 +29,13 @@ function Nav() {
       </Link>
       <Navlinks>
         <Link style={navStyle} to="/about">
-          <li>About</li>
+          <li>Register</li>
         </Link>
         <Link style={navStyle} to="/shop">
-          <li>Shop</li>
+          <li>Dashboard</li>
+        </Link>
+        <Link style={navStyle} to="/shop">
+          <li>Admin Only</li>
         </Link>
       </Navlinks>
     </Nav>

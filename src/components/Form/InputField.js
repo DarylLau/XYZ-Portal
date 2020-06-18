@@ -1,5 +1,11 @@
 import React, { useState, forwardRef, useImperativeHandle } from "react";
 import styled from "@emotion/styled";
+import {
+  InputWrapper,
+  Input,
+  InputLabel,
+  InputError,
+} from "../../styles/elements";
 
 const InputField = forwardRef((props, ref) => {
   const [value, setValue] = useState(props.value);
@@ -65,12 +71,10 @@ const InputField = forwardRef((props, ref) => {
   });
 
   return (
-    <div className="input-wrapper">
-      {props.label && <label>{props.label}</label>}
-      <input
-        style={
-          error ? { borderColor: "red", borderWidth: 1 } : { borderWidth: 0 }
-        }
+    <InputWrapper>
+      {props.label && <InputLabel>{props.label}</InputLabel>}
+      <Input
+        error={error}
         placeholder={props.placeholder}
         name={props.name}
         onChange={(event) => handleChange(event)}
@@ -79,9 +83,9 @@ const InputField = forwardRef((props, ref) => {
         autoComplete={props.autoComplete}
         min={props.min}
         max={props.max}
-      ></input>
-      {error && <p className="error">{error}</p>}
-    </div>
+      ></Input>
+      {error && <InputError>{error}</InputError>}
+    </InputWrapper>
   );
 });
 

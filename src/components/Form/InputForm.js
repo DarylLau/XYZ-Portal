@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import InputField from "./InputField";
 import moment from "moment";
 import Summary from "./Summary";
+import styled from "@emotion/styled";
+import { Form, FormH1, FormH3, Row, Button } from "../../styles/elements";
 
 const InputForm = () => {
   const noOfNonDynamicFields = 6;
@@ -34,9 +36,9 @@ const InputForm = () => {
     setData((prev) => Object.assign({}, prev, { [name]: value }));
   };
 
+  //so it refreshes everything the number of employee is updated
   useEffect(() => {
     handleChange("noOfEmployee", noOfEmployee.length);
-    //InsertStartingDateIfNotExist();
   }, [noOfEmployee]);
 
   const submitForm = (e) => {
@@ -109,16 +111,43 @@ const InputForm = () => {
     }
   };
 
-  const InsertStartingDateIfNotExist = () => {
-    for (let i = 0; i < noOfEmployee.length; i++) {
-      if (!data[`fromDate${i}`]) {
-        handleChange(`fromDate${i}`, date);
-      }
-      if (!data[`toDate${i}`]) {
-        handleChange(`toDate${i}`, date);
-      }
-    }
-    //var origDate = value ? value : date;
+  const postData = async (data, e) => {
+    e.preventDefault();
+    // try {
+    //   const requestOptions = {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify(data),
+    //   };
+    //   const response = await fetch(`./submit`, requestOptions);
+    //   //const reply = await response.json();
+    //   console.log(response);
+    //   //console.log(reply.message);
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    };
+
+    fetch(`./submit`, requestOptions)
+      .then(async (response) => {
+        const message = await response.json();
+
+        // check for error response
+        if (!response.ok) {
+          // get error message from body or default to response status
+          const error = (message && message.message) || response.status;
+          return Promise.reject(error);
+        }
+        console.log(response);
+        console.log(message);
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
   };
 
   /* <WeatherEngine location="sydney, au" />
@@ -128,8 +157,8 @@ const InputForm = () => {
     <div>
       {!showSummary ? (
         <div>
-          <form onSubmit={submitForm} className="form">
-            <h1>React register form</h1>
+          <Form onSubmit={submitForm} className="form">
+            <FormH1>React register form</FormH1>
             <InputField
               ref={inputRefs.current[0]}
               name="coyName"
@@ -178,9 +207,11 @@ const InputForm = () => {
               validation={"required|email"}
               value={data["applicantEmail"]}
             />
-            <button onClick={(e) => handleAdd(e)}>Add</button>
-            <h3>{noOfEmployee.length}</h3>
-            <button onClick={(e) => handleMinus(e)}>Minus</button>
+            <Row>
+              <Button onClick={(e) => handleAdd(e)}>Add</Button>
+              <FormH3> {noOfEmployee.length} </FormH3>
+              <Button onClick={(e) => handleMinus(e)}>Minus</Button>
+            </Row>
             {noOfEmployee.map((value, index) => (
               <div key={"div" + index}>
                 <h3 key={"h3" + index}>Details of Employee {index + 1}</h3>
@@ -265,15 +296,17 @@ const InputForm = () => {
                 />
               </div>
             ))}
-            <button type="submit">Continue</button>
-          </form>
+            <Button margin type="submit">
+              Continue
+            </Button>
+          </Form>
         </div>
       ) : (
-        <div classname="form">
+        <Form>
           <Summary data={data} />
-          <button onClick={() => setShowSummary(false)}>Edit</button>
-          <button onClick={() => setShowSummary(false)}>Submit</button>
-        </div>
+          <Button onClick={() => setShowSummary(false)}>Edit</Button>
+          <Button onClick={(e) => postData(data, e)}>Submit</Button>
+        </Form>
       )}
     </div>
   );
