@@ -104,6 +104,7 @@ app.post("/submit", async (req, res) => {
 app.post("/updateBooking", async (req, res) => {
   var data = req.body;
   console.log(data);
+  console.log(data);
   await Booking.findByIdAndUpdate(
     `${data.id}`,
     {
