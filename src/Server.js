@@ -23,6 +23,42 @@ app.get("/express_backend", (req, res) => {
   res.send({ express: "YOUR EXPRESS BACKEND IS CONNECTED TO REACT" });
 });
 
+app.get("/bookings", (req, res) => {
+  const applicantName = req.query.applicantName; // query = {sex:"female"}
+  const applicantContact = req.query.applicantContact;
+  console.log(
+    `applicantName ${applicantName} applicantContact ${applicantContact}`
+  );
+  Booking.find({
+    applicantName: applicantName,
+    applicantContact: applicantContact,
+  })
+    .sort("-created")
+    .exec(function (err, bookings) {
+      if (err) throw err;
+
+      var jsonFormat = JSON.parse(JSON.stringify(bookings));
+      console.log(jsonFormat);
+      //console.log(jsonFormat[0].employee[0]);
+      res.send(jsonFormat);
+      // console.log(bookings.employee);
+    });
+});
+
+app.get("/getAllBookings", async (req, res) => {
+  Booking.find()
+    .sort("-created")
+    .exec(function (err, bookings) {
+      if (err) throw err;
+
+      var jsonFormat = JSON.parse(JSON.stringify(bookings));
+      console.log(jsonFormat);
+      //console.log(jsonFormat[0].employee[0]);
+      res.send(jsonFormat);
+      // console.log(bookings.employee);
+    });
+});
+
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -37,7 +73,7 @@ app.post("/submit", async (req, res) => {
     coyUEN: data.coyUEN,
     applicantName: data.applicantName,
     applicantContact: data.applicantContact,
-    applicantEmail: data.appplicantEmail,
+    applicantEmail: data.applicantEmail,
     noOfEmployee: data.noOfEmployee,
   });
   for (let i = 0; i < data.noOfEmployee; i++) {
@@ -53,9 +89,6 @@ app.post("/submit", async (req, res) => {
       costing: getRandomInt(1000, 5000),
     });
   }
-  // for (let i = 0; i < data.noOfEmployee; i++){
-
-  // }
 
   await booking
     .save()
@@ -68,11 +101,18 @@ app.post("/submit", async (req, res) => {
   res.json({ message: "recieved message successfully" });
 });
 
-app.get("/testRetrieve", async (req, res) => {
-  try {
-    const bookings = await Booking.find();
-    console.log(bookings);
-  } catch (err) {
-    console.log(err);
-  }
+app.post("/updateBooking", async (req, res) => {
+  var data = req.body;
+  console.log(data);
+  await Booking.findByIdAndUpdate(
+    `${data.id}`,
+    {
+      approvalStatus: data.approvalStatus,
+    },
+    { new: true },
+    function (err, booking) {
+      if (err) throw err;
+      res.json({ message: "Updated successfully" });
+    }
+  );
 });

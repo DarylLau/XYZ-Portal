@@ -1,63 +1,76 @@
-import React, { useState, useRef, useEffect } from "react";
-import InputField from "../Form/InputField";
-import { Form, FormH1, FormH3, Row, Button } from "../../styles/elements";
+import React, { useState } from "react";
+import moment from "moment";
+import { Button } from "../../styles/elements";
+import IndividualBooking from "./IndividualBooking";
+import { totalCosting, formateDate } from "../../Helper/Helper";
 
-const DashboardMain = () => {
-  const [data, setData] = useState({});
-  const inputRefs = useRef([React.createRef(), React.createRef()]);
+const DashboardMain = ({ data }) => {
+  const [showIndividualData, setShowIndividualData] = useState(false);
+  const [individualData, setIndividualData] = useState({});
 
-  const handleChange = (name, value) => {
-    setData((prev) => Object.assign({}, prev, { [name]: value }));
-  };
+  // const totalCosting = (value) => {
+  //   var cost = 0;
+  //   for (let i = 0; i < value.noOfEmployee; i++) {
+  //     cost += value.employee[i].costing;
+  //   }
+  //   return cost;
+  // };
 
-  const submitForm = (e) => {
+  // const formateDate = (dateObj) => {
+  //   var momentObj = moment(dateObj);
+  //   var momentString = momentObj.format("dddd, MMMM Do YYYY h:mm:ss a");
+  //   return momentString;
+  // };
+
+  const getIndividualData = (e) => {
     e.preventDefault();
 
-    console.log(data);
-
-    let isValid = true;
-
-    for (let i = 0; i < inputRefs.current.length; i++) {
-      var valid = inputRefs.current[i].current.validate();
-      console.log(valid);
-      if (!valid) {
-        isValid = false;
+    const id = e.target.id;
+    for (let i = 0; i < data.length; i++) {
+      if (data[i]._id === id) {
+        // setIndividualData(JSON.stringify(data[i]));
+        setIndividualData(data[i]);
+        setShowIndividualData(true);
+        break;
       }
     }
-    if (!isValid) {
-      return;
-    }
-    console.log("logged in");
   };
 
   return (
     <div>
-      <Form onSubmit={submitForm} className="form">
-        <FormH1>Enter the details</FormH1>
+      {!showIndividualData ? (
+        <div>
+          <h2>Hi {data[0].applicantName}, these are your applications</h2>
+          {data.map((value, index) => (
+            <div key={"div" + index}>
+              <h3 key={"bookingId" + index}>Booking ID: {value._id}</h3>
 
-        <InputField
-          ref={inputRefs.current[0]}
-          name="applicantName"
-          label="Applicant Name*:"
-          onChange={handleChange}
-          validation={"required"}
-          value={data["applicantName"]}
-        />
-        <InputField
-          ref={inputRefs.current[1]}
-          name="applicantContact"
-          label="Applicant Contact*:"
-          onChange={handleChange}
-          validation={"required|contact"}
-          value={data["applicantContact"]}
-        />
-        <Button margin type="submit">
-          Continue
-        </Button>
-      </Form>
-      <Form>
-        <FormH1>Showing the details</FormH1>
-      </Form>
+              <h3 key={"costing" + index}>Costing: ${totalCosting(value)}</h3>
+              <h3 key={"date" + index}>
+                Request Created: {formateDate(value.created)}
+              </h3>
+              <h3 key={"bookingStatus" + index}>
+                Booking status: {value.approvalStatus}
+              </h3>
+              <Button
+                key={"button" + index}
+                margin
+                id={value._id}
+                onClick={(e) => getIndividualData(e)}
+              >
+                View Details
+              </Button>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div>
+          <IndividualBooking data={individualData}></IndividualBooking>
+          <Button margin onClick={(e) => setShowIndividualData(false)}>
+            Back
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

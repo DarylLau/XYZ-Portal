@@ -26,12 +26,6 @@ const InputForm = () => {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  console.log(inputRefs);
-  console.log(inputRefs.current[1]);
-  console.log(inputRefs.current[6][0][0]);
-  console.log("render");
-  console.log(date);
-
   const handleChange = (name, value) => {
     // setData((prev) => ({ ...prev, [name]: value })); //not supported in IE/ edge
     setData((prev) => Object.assign({}, prev, { [name]: value }));
@@ -44,8 +38,6 @@ const InputForm = () => {
 
   const submitForm = (e) => {
     e.preventDefault();
-
-    console.log(data);
 
     let isValid = true;
 
@@ -71,7 +63,6 @@ const InputForm = () => {
       return;
     }
     setShowSummary(true);
-    console.log("logged in");
   };
 
   const handleAdd = (e) => {
@@ -92,19 +83,13 @@ const InputForm = () => {
   };
 
   const getToDateValue = (fromDateStr, toDateStr) => {
-    console.log("From date: " + fromDateStr + " ,to Date: " + toDateStr);
     var fromDate;
     var toDate;
     if (fromDateStr != null) fromDate = moment(fromDateStr, "YYYY-MM-DD");
     else fromDate = moment().startOf("day");
     if (toDateStr != null) toDate = moment(toDateStr, "YYYY-MM-DD");
     else toDate = moment().startOf("day");
-    console.log(
-      "From date: " +
-        fromDate.format("YYYY-MM-DD") +
-        " ,to Date: " +
-        toDate.format("YYYY-MM-DD")
-    );
+
     if (fromDate.isSameOrBefore(toDate)) {
       return toDate.format("YYYY-MM-DD");
     } else {
@@ -150,10 +135,11 @@ const InputForm = () => {
         <div>
           <Form onSubmit={submitForm} className="form">
             <FormH1>Registration Form</FormH1>
+            <h2>Company Details</h2>
             <InputField
               ref={inputRefs.current[0]}
               name="coyName"
-              label="Name of Company*:"
+              label="Name of Company*"
               onChange={handleChange}
               validation={"required"}
               value={data["coyName"]}
@@ -161,7 +147,7 @@ const InputForm = () => {
             <InputField
               ref={inputRefs.current[1]}
               name="coyAddress"
-              label="Address of Company*:"
+              label="Address of Company*"
               onChange={handleChange}
               validation={"required"}
               value={data["coyAddress"]}
@@ -169,15 +155,16 @@ const InputForm = () => {
             <InputField
               ref={inputRefs.current[2]}
               name="coyUEN"
-              label="Unique Entity Number (UEN) of company:"
+              label="Unique Entity Number (UEN) of company"
               onChange={handleChange}
               validation={"required|UEN"}
               value={data["coyUEN"]}
             />
+            <h2>Applicant Details</h2>
             <InputField
               ref={inputRefs.current[3]}
               name="applicantName"
-              label="Name of Applicant*:"
+              label="Name of Applicant*"
               onChange={handleChange}
               validation={"required"}
               value={data["applicantName"]}
@@ -185,7 +172,7 @@ const InputForm = () => {
             <InputField
               ref={inputRefs.current[4]}
               name="applicantContact"
-              label="Contact of Applicant*:"
+              label="Contact of Applicant*"
               onChange={handleChange}
               validation={"required|contact"}
               value={data["applicantContact"]}
@@ -193,7 +180,7 @@ const InputForm = () => {
             <InputField
               ref={inputRefs.current[5]}
               name="applicantEmail"
-              label="Email of Applicant*:"
+              label="Email of Applicant*"
               onChange={handleChange}
               validation={"required|email"}
               value={data["applicantEmail"]}
@@ -205,12 +192,12 @@ const InputForm = () => {
             </Row>
             {noOfEmployee.map((value, index) => (
               <div key={"div" + index}>
-                <h3 key={"h3" + index}>Details of Employee {index + 1}</h3>
+                <h2 key={"h3" + index}>Details of Employee {index + 1}</h2>
                 <InputField
                   key={"employeeName" + index}
                   ref={inputRefs.current[6][index][0]}
                   name={"employeeName" + index}
-                  label={"Name of employee*"}
+                  label={"Name of Employee*"}
                   onChange={handleChange}
                   validation={"required"}
                   value={data[`employeeName${index}`]}
@@ -227,7 +214,7 @@ const InputForm = () => {
                   key={"employeePassport" + index}
                   ref={inputRefs.current[6][index][2]}
                   name={"employeePassport" + index}
-                  label={"Passport No.*"}
+                  label={"Passport No*"}
                   onChange={handleChange}
                   validation={"required"}
                   value={data[`employeePassport${index}`]}
@@ -295,15 +282,20 @@ const InputForm = () => {
       ) : (
         <Form>
           <Summary data={data} />
-          <Button
-            onClick={() => {
-              setShowSummary(false);
-              setSubmitted(false);
-            }}
-          >
-            Edit
-          </Button>
-          <Button onClick={(e) => postData(data, e)}>Submit</Button>
+          <Row>
+            <Button
+              margin
+              onClick={() => {
+                setShowSummary(false);
+                setSubmitted(false);
+              }}
+            >
+              Edit
+            </Button>
+            <Button margin onClick={(e) => postData(data, e)}>
+              Submit
+            </Button>
+          </Row>
           {submitted ? (
             submitSuccess ? (
               <h1>Submitted success</h1>
@@ -315,16 +307,6 @@ const InputForm = () => {
       )}
     </div>
   );
-
-  // const Home = () => (
-  //   <div>
-  //     <h1>Home Page</h1>
-  //     <h1>App</h1>
-  //     <form></form>
-  //     {/* <WeatherEngine location="sydney, au" />
-  //   <WeatherEngine location="london, gb" /> */}
-  //   </div>
-  // );
 };
 
 export default InputForm;

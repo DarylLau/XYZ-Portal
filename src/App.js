@@ -7,7 +7,8 @@ import Shop from "./components/Navigation/Shop";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import InputForm from "./components/Form/InputForm";
 import MainPage from "./components/MainPage";
-import DashboardMain from "./components/Dashboard/DashboardMain";
+import DashboardLogin from "./components/Dashboard/DashboardLogin";
+import AdminBoard from "./components/AdminBoard/AdminBoard";
 
 function App() {
   return (
@@ -17,8 +18,8 @@ function App() {
         <Switch>
           <Route path="/" exact component={MainPage} />
           <Route path="/register" component={InputForm} />
-          <Route path="/dashboard" component={DashboardMain} />
-          <Route path="/admin" component={Shop} />
+          <Route path="/dashboard" component={DashboardLogin} />
+          <Route path="/admin" component={AdminBoard} />
         </Switch>
       </div>
     </Router>
