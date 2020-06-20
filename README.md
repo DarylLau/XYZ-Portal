@@ -5,12 +5,12 @@ This project mimics an online portal for a Company named "XYZ Pte Ltd". Company 
 
 ## Before you start
 
-Make sure to have node and MongoDB installed. Default port of MongoDB will be used.
+Make sure to have node and MongoDB installed. Default port of MongoDB is used.
 
 ## To Begin
 
-Download/clone the src code into a directory.
-Open a command prompt and go to directory and run `npm install` to download the dependencies.
-Navigate to the 'src' folder of the directory and run `node server.js` to start the server
-Open another command prompt and go to the directory and run `npm start` to run the app in development mode.
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Download/clone the src code into a directory.
+2. Open a command prompt and go to directory and run `npm install` to download the dependencies.
+3. Navigate to the 'src' folder of the directory and run `node server.js` to start the server
+4. Open another command prompt and go to the directory and run `npm start` to run the app in development mode.
+5. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
