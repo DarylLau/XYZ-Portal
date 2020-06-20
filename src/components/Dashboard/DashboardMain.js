@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import moment from "moment";
 import { Button } from "../../styles/elements";
 import IndividualBooking from "./IndividualBooking";
 import { totalCosting, formateDate } from "../../Helper/Helper";
@@ -14,7 +13,6 @@ const DashboardMain = ({ data }) => {
     const id = e.target.id;
     for (let i = 0; i < data.length; i++) {
       if (data[i]._id === id) {
-        // setIndividualData(JSON.stringify(data[i]));
         setIndividualData(data[i]);
         setShowIndividualData(true);
         break;

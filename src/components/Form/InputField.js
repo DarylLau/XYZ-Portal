@@ -1,5 +1,4 @@
 import React, { useState, forwardRef, useImperativeHandle } from "react";
-import styled from "@emotion/styled";
 import {
   InputWrapper,
   Input,
@@ -32,21 +31,21 @@ const InputField = forwardRef((props, ref) => {
         }
 
         if (currentRule === "email") {
-          var pattern = new RegExp(
+          var emailPattern = new RegExp(
             /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
           );
 
-          if (!pattern.test(value)) {
+          if (!emailPattern.test(value)) {
             setError("Invalid email format");
             return false;
           }
         }
 
         if (currentRule === "UEN") {
-          var pattern = new RegExp(
-            /^((\d{8}[A-Z]{1})|(?:19|20)\d{7}[A-Z]{1})|((T|S|R)\d{2}(LP|LL|FC|PF|RF|MQ|MM|NB|CC|CS|MB|FM|GS|DP|CP|NR|CM|CD|MD|HS|VH|CH|MH|CL|XL|CX|RP|TU|TC|FB|FN|PA|PB|SS|MC|SM|GA|GB)\d{4}[A-Z]{1})$/
+          var pattern1 = new RegExp(
+            /^(\d{8}[A-Z]{1}|(?:19|20)\d{7}[A-Z]{1}|((T|S|R)\d{2}(LP|LL|FC|PF|RF|MQ|MM|NB|CC|CS|MB|FM|GS|DP|CP|NR|CM|CD|MD|HS|VH|CH|MH|CL|XL|CX|RP|TU|TC|FB|FN|PA|PB|SS|MC|SM|GA|GB)\d{4}[A-Z]{1}))$/
           );
-          if (!pattern.test(value)) {
+          if (!pattern1.test(value)) {
             setError("Not a valid UEN");
             return false;
           }

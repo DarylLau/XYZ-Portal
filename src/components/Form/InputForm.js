@@ -81,21 +81,6 @@ const InputForm = () => {
     }
   };
 
-  const getToDateValue = (fromDateStr, toDateStr) => {
-    var fromDate;
-    var toDate;
-    if (fromDateStr != null) fromDate = moment(fromDateStr, "YYYY-MM-DD");
-    else fromDate = moment().startOf("day");
-    if (toDateStr != null) toDate = moment(toDateStr, "YYYY-MM-DD");
-    else toDate = moment().startOf("day");
-
-    if (fromDate.isSameOrBefore(toDate)) {
-      return toDate.format("YYYY-MM-DD");
-    } else {
-      return fromDate.format("YYYY-MM-DD");
-    }
-  };
-
   const postData = async (data, e) => {
     e.preventDefault();
     setSubmitted(true);
