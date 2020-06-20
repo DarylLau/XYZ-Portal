@@ -99,7 +99,7 @@ const DashboardLogin = () => {
                   id="12345678"
                   onClick={(e) => returnToPreviousPage(e)}
                 >
-                  back
+                  Back
                 </Button>
               </div>
             ) : (

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Button, Row } from "../../styles/elements";
 import { totalCosting, formateDate } from "../../Helper/Helper";
 import IndividualBooking from "../Dashboard/IndividualBooking";
@@ -16,9 +16,8 @@ const AdminBoard = () => {
       const data = await fetch(`./getAllBookings`);
       const items = await data.json();
       setBookings(items);
-      console.log("a" + items);
     } catch (e) {
-      console.log("error");
+      console.error("There was an error when fetching!", e);
     }
   };
 
@@ -38,7 +37,6 @@ const AdminBoard = () => {
 
   const updateApproval = (str, e) => {
     e.preventDefault();
-    console.log(e.target.id);
 
     const requestOptions = {
       method: "POST",
@@ -59,12 +57,10 @@ const AdminBoard = () => {
           const error = (message && message.message) || response.status;
           return Promise.reject(error);
         }
-        console.log(response);
-        console.log(message);
         setShowIndividualData(false);
       })
       .catch((error) => {
-        console.error("There was an error!", error);
+        console.error("There was an error during update!", error);
       });
   };
 
@@ -77,14 +73,30 @@ const AdminBoard = () => {
             {bookings.map((value, index) => (
               <div key={"div" + index}>
                 <h3 key={"h3" + index}>{index + 1})</h3>
-                <h3 key={"bookingId" + index}>Booking ID: {value._id}</h3>
+                <h3 key={"bookingId" + index}>
+                  Booking ID:
+                  <span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  </span>
+                  {value._id}
+                </h3>
 
-                <h3 key={"costing" + index}>Costing: ${totalCosting(value)}</h3>
+                <h3 key={"costing" + index}>
+                  Costing:
+                  <span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  </span>
+                  ${totalCosting(value)}
+                </h3>
                 <h3 key={"date" + index}>
-                  Request Created: {formateDate(value.created)}
+                  Request Created:
+                  <span>&nbsp;&nbsp;&nbsp;</span>
+                  {formateDate(value.created)}
                 </h3>
                 <h3 key={"bookingStatus" + index}>
-                  Booking status: {value.approvalStatus}
+                  Booking status:
+                  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  {value.approvalStatus}
                 </h3>
                 <Button
                   key={"button" + index}

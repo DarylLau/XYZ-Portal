@@ -1,4 +1,3 @@
-hank you for your interest in joining Government Digital Services. As the part of our screening process, we would like to assess your knowledge of web development in this take home assignment. Please complete this assignment within 2 weeks from now. Feel free to contact me if you have any questions.
 Background
 Company XYZ Pte Ltd is a travel agency that helps affiliated companies to make travel arrangements for official purposes. It provides an online portal for the affiliated companies to submit travel applications for their employees. Each application may take 2-3 days to process. Outcome of all applications by the company will be reflected on the portal.
 Functional Specs

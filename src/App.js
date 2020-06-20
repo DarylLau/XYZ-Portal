@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./App.css";
-import WeatherEngine from "./components/WeatherEngine";
 import Nav from "./components/Navigation/Nav";
-import About from "./components/Navigation/About";
-import Shop from "./components/Navigation/Shop";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import InputForm from "./components/Form/InputForm";
 import MainPage from "./components/MainPage";

@@ -25,7 +25,7 @@ function Nav() {
   return (
     <Nav>
       <Link to="/">
-        <h3>Logo</h3>
+        <h3>XYZ Logo</h3>
       </Link>
       <Navlinks>
         <Link style={navStyle} to="/register">
@@ -35,7 +35,7 @@ function Nav() {
           <li>Dashboard</li>
         </Link>
         <Link style={navStyle} to="/admin">
-          <li>Admin Only</li>
+          <li>Admin Portal</li>
         </Link>
       </Navlinks>
     </Nav>

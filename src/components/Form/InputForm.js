@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from "react";
 import InputField from "./InputField";
 import moment from "moment";
 import Summary from "./Summary";
-import styled from "@emotion/styled";
 import { Form, FormH1, FormH3, Row, Button } from "../../styles/elements";
 
 const InputForm = () => {
