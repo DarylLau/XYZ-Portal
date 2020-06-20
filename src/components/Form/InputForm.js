@@ -186,9 +186,13 @@ const InputForm = () => {
               value={data["applicantEmail"]}
             />
             <Row>
-              <Button onClick={(e) => handleAdd(e)}>Add</Button>
-              <FormH3> {noOfEmployee.length} </FormH3>
-              <Button onClick={(e) => handleMinus(e)}>Minus</Button>
+              <Button data-testid="addButton" onClick={(e) => handleAdd(e)}>
+                Add
+              </Button>
+              <FormH3 data-testid="countTitle"> {noOfEmployee.length} </FormH3>
+              <Button data-testid="minusButton" onClick={(e) => handleMinus(e)}>
+                Minus
+              </Button>
             </Row>
             {noOfEmployee.map((value, index) => (
               <div key={"div" + index}>
